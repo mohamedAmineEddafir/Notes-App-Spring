@@ -1,9 +1,6 @@
 package com.secure.notes.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Objects;
@@ -14,27 +11,28 @@ public class Notes {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO) // @GeneratedValue to indicate that the ID should be generated automatically.
-    private int id;
-    private String title;
+    private Long id;
+    @Lob
     private String content;
+    private String userName;
 
     public Notes() {}
-    public Notes(int id, String title, String content) {
+    public Notes(Long id, String userName, String content) {
         this.id = id;
-        this.title = title;
+        this.userName = userName;
         this.content = content;
     }
-    public int getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    public String getTitle() {
-        return title;
+    public String getUserName() {
+        return userName;
     }
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     public String getContent() {
         return content;
@@ -48,20 +46,20 @@ public class Notes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Notes notes = (Notes) o;
-        return id == notes.id && Objects.equals(title, notes.title) && Objects.equals(content, notes.content);
+        return Objects.equals(id, notes.id) && Objects.equals(content, notes.content) && Objects.equals(userName, notes.userName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content);
+        return Objects.hash(id, content, userName);
     }
 
     @Override
     public String toString() {
         return "Notes{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", userName='" + userName + '\'' +
                 '}';
     }
 }
