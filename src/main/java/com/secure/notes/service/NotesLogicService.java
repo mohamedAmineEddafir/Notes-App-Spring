@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class NotesLogicService implements NotesService {
 
-    //Call NotesRepository
+    //Call NotesRepository make the as record
     private final NotesRepository notesRepository;
 
     public NotesLogicService(NotesRepository notesRepository) {
@@ -37,6 +37,7 @@ public class NotesLogicService implements NotesService {
         notesRepository.deleteById(noteId);
     }
 
+    // Show All Notes For Each User's by here name's
     @Override
     public List<Notes> getAllNotes(String username) {
         return notesRepository.findByUserName(username);
