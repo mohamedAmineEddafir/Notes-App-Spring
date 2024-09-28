@@ -27,13 +27,13 @@ public class NotesLogicService implements NotesService {
     @Override
     public Notes updateNoteForUser(Long noteId, String username, String content) {
         Notes note = notesRepository.findById(noteId).orElseThrow(()
-                ->new RuntimeException("Note not found"));
+                -> new RuntimeException("Note not found"));
         note.setContent(content);
         return notesRepository.save(note);
     }
 
     @Override
-    public void deleteNoteForUser(Long noteId) {
+    public void deleteNoteForUser(Long noteId, String username) {
         notesRepository.deleteById(noteId);
     }
 
