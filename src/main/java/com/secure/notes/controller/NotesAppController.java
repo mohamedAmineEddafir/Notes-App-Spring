@@ -22,6 +22,7 @@ public class NotesAppController {
         System.out.println(username);
         return notesService.createNoteForUser(username, content);
     }
+
     @GetMapping
     public List<Notes> getUserNotes(@AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
@@ -39,7 +40,8 @@ public class NotesAppController {
     }
 
     @DeleteMapping("/{noteId}")
-    public void deleteNotes(@PathVariable Long noteId, @AuthenticationPrincipal UserDetails userDetails) {
+    public void deleteNotes(@PathVariable Long noteId,
+                            @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
         System.out.println("DELETE NOTE "+noteId);
         notesService.deleteNoteForUser(noteId, username);

@@ -1,0 +1,22 @@
+services:
+  db:
+    container_name: postgreSQLnotes
+    image: postgres
+    environment:
+      POSTGRES_USER: postgresNotes
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5436:5432"
+    networks:
+      - db
+    restart: unless-stopped
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
