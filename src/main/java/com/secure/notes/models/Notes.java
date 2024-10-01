@@ -2,9 +2,13 @@ package com.secure.notes.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 @Data
 public class Notes {
@@ -14,30 +18,12 @@ public class Notes {
     private Long id;
     @Lob
     private String content;
-    private String userName;
+    private String username;
 
     public Notes() {}
-    public Notes(Long id, String userName, String content) {
+    public Notes(Long id, String username, String content) {
         this.id = id;
-        this.userName = userName;
-        this.content = content;
-    }
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getUserName() {
-        return userName;
-    }
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
+        this.username = username;
         this.content = content;
     }
 
@@ -46,12 +32,12 @@ public class Notes {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Notes notes = (Notes) o;
-        return Objects.equals(id, notes.id) && Objects.equals(content, notes.content) && Objects.equals(userName, notes.userName);
+        return Objects.equals(id, notes.id) && Objects.equals(content, notes.content) && Objects.equals(username, notes.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content, userName);
+        return Objects.hash(id, content, username);
     }
 
     @Override
@@ -59,7 +45,8 @@ public class Notes {
         return "Notes{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
+
 }

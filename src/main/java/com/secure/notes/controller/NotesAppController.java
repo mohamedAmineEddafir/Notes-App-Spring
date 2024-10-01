@@ -2,7 +2,6 @@ package com.secure.notes.controller;
 
 import com.secure.notes.models.Notes;
 import com.secure.notes.service.NotesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +11,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/notes")
 public class NotesAppController {
-    @Autowired
-    private NotesService notesService;
+
+    private final NotesService notesService;
+
+    public NotesAppController(NotesService notesService) {
+        this.notesService = notesService;
+    }
 
     @PostMapping
     public Notes createNotes(@RequestBody String content,
                              @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
-        System.out.println(username);
+        System.out.println("USER DETAILS "+username);
+        System.out.println(content);
         return notesService.createNoteForUser(username, content);
     }
 

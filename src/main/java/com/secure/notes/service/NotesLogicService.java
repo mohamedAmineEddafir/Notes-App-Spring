@@ -18,18 +18,18 @@ public class NotesLogicService implements NotesService {
 
     @Override
     public Notes createNoteForUser(String username, String content) {
-        Notes note = new Notes();
-        note.setContent(content);
-        note.setUserName(username);
-        return notesRepository.save(note);
+        Notes notes = new Notes();
+        notes.setContent(content);
+        notes.setUsername(username);
+        return notesRepository.save(notes);
     }
 
     @Override
     public Notes updateNoteForUser(Long noteId, String username, String content) {
-        Notes note = notesRepository.findById(noteId).orElseThrow(()
+        Notes notes = notesRepository.findById(noteId).orElseThrow(()
                 -> new RuntimeException("Note not found"));
-        note.setContent(content);
-        return notesRepository.save(note);
+        notes.setContent(content);
+        return notesRepository.save(notes);
     }
 
     @Override
@@ -40,6 +40,6 @@ public class NotesLogicService implements NotesService {
     // Show All Notes For Each User's by here name's
     @Override
     public List<Notes> getAllNotes(String username) {
-        return notesRepository.findByUserName(username);
+        return notesRepository.findByUsername(username);
     }
 }
