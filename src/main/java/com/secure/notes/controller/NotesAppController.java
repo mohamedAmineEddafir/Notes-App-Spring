@@ -39,8 +39,9 @@ public class NotesAppController {
                              @RequestBody String content ,
                              @AuthenticationPrincipal UserDetails userDetails) {
         String username = userDetails.getUsername();
-        return notesService.updateNoteForUser(noteId, content, username);
-
+//        System.out.println("USER DETAILS NotesApp "+username);
+//        System.out.println("this my content NotesApp "+content);
+        return notesService.updateNoteForUser(noteId, username, content);
     }
 
     @DeleteMapping("/{noteId}")
