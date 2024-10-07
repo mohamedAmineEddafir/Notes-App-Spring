@@ -2,13 +2,13 @@ package com.secure.notes.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -46,23 +46,23 @@ public class SecurityConfig {
                     User.withUsername("amine")
                     .password(passwordEncoder.encode("123"))
                     .authorities("ROLE_USER")
-                    .disabled(true)
                     .build()
             );
         } else {
             throw new UsernameNotFoundException("User not found");
         }
+
         if (!userManager.userExists("admin")){
             userManager.createUser(
                     User.withUsername("admin")
                     .password(passwordEncoder.encode("@dmin"))
                     .authorities("ROLE_ADMIN")
-                    .disabled(true)
                     .build()
             );
         } else {
             throw new UsernameNotFoundException("Admin not found");
         }
+
         return userManager;
     }
 }
