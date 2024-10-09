@@ -10,8 +10,13 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -63,6 +68,34 @@ public class User {
     @JsonBackReference
     @ToString.Exclude
     private Role role;
-    public User() {}
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp // this timestamp is regenerated every time in instance is updated in the database
+    private LocalDateTime updatedAt;
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(UserId, user.UserId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(UserId);
+    }
 }
