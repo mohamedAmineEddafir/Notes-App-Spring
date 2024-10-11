@@ -1,22 +1,20 @@
 package com.secure.notes.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Objects;
+import java.time.LocalDate;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Setter
 @Getter
@@ -58,10 +56,16 @@ public class User {
     private LocalDate credentialsExpiredDate;
     private LocalDate accountExpiredDate;
 
-    // on SignUp Method
+    /*
+        * towFactorSecret * stores the secret key for 2FA,
+        while * towFactorEnabled * is a boolean indicating if 2FA is enabled.
+        * signUpMethod * tracks how a user signed up (Google, GitHub, etc.),
+        which is useful for handling different authentication flows.
+    */
+
     private String towFactorSecret;
     private boolean towFactorEnabled = true;
-    private String signUpMethod; // to keep track how user signup (Google, GitHub, etc...)
+    private String signUpMethod;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
@@ -76,11 +80,14 @@ public class User {
     @UpdateTimestamp // this timestamp is regenerated every time in instance is updated in the database
     private LocalDateTime updatedAt;
 
+    public User(){}
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
     }
+
     public User(String username, String email) {
         this.username = username;
         this.email = email;
