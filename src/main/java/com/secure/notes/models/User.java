@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@Setter
 @Getter
+@Setter
 @Data
 @Entity
 @Table(name = "users",
