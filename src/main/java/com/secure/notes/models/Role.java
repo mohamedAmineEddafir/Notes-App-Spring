@@ -23,14 +23,14 @@ public class Role {
     @ToString.Exclude
     @Enumerated(EnumType.STRING)
     @Column(length = 20, name = "role_name")
-    private String roleName;
+    private AppRoles roleName;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonBackReference
     @ToString.Exclude
     private Set<User> users = new HashSet<>();
 
-    public Role(String roleName) {
+    public Role(AppRoles roleName) {
         this.roleName = roleName;
     }
 

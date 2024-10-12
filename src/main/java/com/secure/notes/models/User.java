@@ -31,7 +31,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    public Long UserId;
+    public Long userId;
 
     @NotBlank
     @Size(min = 5, max = 50)
@@ -98,11 +98,22 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(UserId, user.UserId);
+        return enabled == user.enabled && accountNonExpired ==
+                user.accountNonExpired && credentialsNonExpired ==
+                user.credentialsNonExpired && accountNonLocked ==
+                user.accountNonLocked && twoFactorEnabled ==
+                user.twoFactorEnabled && Objects.equals(userId, user.userId)
+                && Objects.equals(username, user.username) && Objects.equals(email, user.email)
+                && Objects.equals(password, user.password) && Objects.equals(credentialsExpiredDate, user.credentialsExpiredDate)
+                && Objects.equals(accountExpiredDate, user.accountExpiredDate) && Objects.equals(twoFactorSecret, user.twoFactorSecret)
+                && Objects.equals(signUpMethod, user.signUpMethod) && Objects.equals(role, user.role) && Objects.equals(createdAt, user.createdAt)
+                && Objects.equals(updatedAt, user.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(UserId);
+        return Objects.hash(userId, username, email, password, enabled, accountNonExpired,
+                credentialsNonExpired, accountNonLocked, credentialsExpiredDate, accountExpiredDate,
+                twoFactorSecret, twoFactorEnabled, signUpMethod, role, createdAt, updatedAt);
     }
 }

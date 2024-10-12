@@ -1,23 +1,31 @@
 package com.secure.notes.security.services;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Data
 public class UserDetailsImpl implements UserDetails {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
+    @Getter
     private Long id;
+
     private String username;
+
+    @Getter
     private String email;
 
     @JsonIgnore
@@ -41,7 +49,8 @@ public class UserDetailsImpl implements UserDetails {
 
     // Static method to build UserDetailsImpl from a custom User entity
     public static UserDetailsImpl build(com.secure.notes.models.User user) {
-        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName());
+        // Convert the role enum to a string using the name() method
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name());
         return new UserDetailsImpl(
                 user.getUserId(),
                 user.getUsername(),
@@ -53,7 +62,6 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     // Implementing the UserDetails interface methods
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities; // Return the actual authorities list
@@ -69,23 +77,42 @@ public class UserDetailsImpl implements UserDetails {
         return username;
     }
 
+    public boolean is2faEnabled() {
+        return is2faEnabled;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return UserDetails.super.isAccountNonExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return UserDetails.super.isAccountNonLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return UserDetails.super.isCredentialsNonExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return UserDetails.super.isEnabled();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDetailsImpl that = (UserDetailsImpl) o;
+        return is2faEnabled == that.is2faEnabled && Objects.equals(id, that.id) &&
+                Objects.equals(username, that.username) && Objects.equals(email, that.email) &&
+                Objects.equals(password, that.password) && Objects.equals(authorities, that.authorities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, password, is2faEnabled, authorities);
     }
 }
