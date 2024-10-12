@@ -9,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -43,7 +40,8 @@ public class SecurityConfig {
         http.httpBasic(withDefaults());
         return http.build();
     }
-/*    @Bean
+
+    @Bean
     public CommandLineRunner initData(RolesRepository rolesRepository, UserRepository userRepository) {
         return args -> {
             // Create roles if they don't exist
@@ -54,8 +52,8 @@ public class SecurityConfig {
                     .orElseGet(() -> rolesRepository.save(new Role(AppRoles.ROLE_ADMIN)));
 
             // Create user1 if not exists
-            if (!userRepository.existsByUsername("user1")) {
-                User user1 = new User("user1", "user1@example.com", "{noop}password1");
+            if (userRepository.existsByUsername("user1")) {
+                User user1 = new User("user1", "user1@gmail.com", passwordEncoder.encode("123"));
                 user1.setAccountNonLocked(false);
                 user1.setAccountNonExpired(true);
                 user1.setCredentialsNonExpired(true);
@@ -69,8 +67,8 @@ public class SecurityConfig {
             }
 
             // Create admin if not exists
-            if (!userRepository.existsByUsername("admin")) {
-                User admin = new User("admin", "admin@example.com", "{noop}adminPass");
+            if (userRepository.existsByUsername("admin")) {
+                User admin = new User("admin", "admin@gmail.com", passwordEncoder.encode("@admin"));
                 admin.setAccountNonLocked(true);
                 admin.setAccountNonExpired(true);
                 admin.setCredentialsNonExpired(true);
@@ -83,7 +81,7 @@ public class SecurityConfig {
                 userRepository.save(admin);
             }
         };
-    }*/
+    }
 
     // Method to add users after JdbcUserDetailsManager is initialized
 /*    @Bean
