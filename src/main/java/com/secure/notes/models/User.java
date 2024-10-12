@@ -63,8 +63,8 @@ public class User {
         which is useful for handling different authentication flows.
     */
 
-    private String towFactorSecret;
-    private boolean towFactorEnabled = true;
+    private String twoFactorSecret;
+    private boolean twoFactorEnabled = true;
     private String signUpMethod;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
