@@ -52,7 +52,7 @@ public class SecurityConfig {
                     .orElseGet(() -> rolesRepository.save(new Role(AppRoles.ROLE_ADMIN)));
 
             // Create user1 if not exists
-            if (userRepository.existsByUsername("user1")) {
+            if (!userRepository.existsByUsername("user1")) {
                 User user1 = new User("user1", "user1@gmail.com", "{noop}password1");
                 user1.setAccountNonLocked(false);
                 user1.setAccountNonExpired(true);
@@ -67,7 +67,7 @@ public class SecurityConfig {
             }
 
             // Create admin if not exists
-            if (userRepository.existsByUsername("admin")) {
+            if (!userRepository.existsByUsername("admin")) {
                 User admin = new User("admin", "admin@gmail.com", "{noop}password1");
                 admin.setAccountNonLocked(true);
                 admin.setAccountNonExpired(true);
