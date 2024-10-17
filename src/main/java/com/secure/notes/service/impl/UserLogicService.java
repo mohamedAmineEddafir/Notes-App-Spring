@@ -7,6 +7,7 @@ import com.secure.notes.models.User;
 import com.secure.notes.repository.RolesRepository;
 import com.secure.notes.repository.UserRepository;
 import com.secure.notes.service.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class UserLogicService implements UsersService {
 
     private final RolesRepository rolesRepository;
 
+    @Autowired
     public UserLogicService(UserRepository userRepository, RolesRepository rolesRepository) {
         this.userRepository = userRepository;
         this.rolesRepository = rolesRepository;

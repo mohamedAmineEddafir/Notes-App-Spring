@@ -1,5 +1,6 @@
 package com.secure.notes.security.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.secure.notes.repository.UserRepository;
 import com.secure.notes.models.User;
@@ -13,6 +14,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     // Injecting the UserRepository to access user data
     private final UserRepository userRepository;
 
+    @Autowired
     public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

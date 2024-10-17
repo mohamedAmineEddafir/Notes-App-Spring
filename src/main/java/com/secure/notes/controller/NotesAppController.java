@@ -2,6 +2,7 @@ package com.secure.notes.controller;
 
 import com.secure.notes.models.Notes;
 import com.secure.notes.service.NotesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ public class NotesAppController {
 
     private final NotesService notesService;
 
+    @Autowired
     public NotesAppController(NotesService notesService) {
         this.notesService = notesService;
     }

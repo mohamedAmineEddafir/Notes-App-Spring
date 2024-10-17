@@ -3,6 +3,7 @@ package com.secure.notes.service.impl;
 import com.secure.notes.models.Notes;
 import com.secure.notes.repository.NotesRepository;
 import com.secure.notes.service.NotesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ public class NotesLogicService implements NotesService {
     //Call NotesRepository make the as record
     private final NotesRepository notesRepository;
 
+    @Autowired
     public NotesLogicService(NotesRepository notesRepository) {
         this.notesRepository = notesRepository;
     }
