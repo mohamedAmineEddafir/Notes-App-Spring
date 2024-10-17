@@ -1,14 +1,28 @@
 package com.secure.notes.controller;
 
+import com.secure.notes.models.User;
+import com.secure.notes.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
+    @Autowired
+    UsersService usersService;
+
+    @GetMapping("/getusers")
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = usersService.getUsers();
+        return ResponseEntity.ok(users);
+    }
+
+
+
 
 }
