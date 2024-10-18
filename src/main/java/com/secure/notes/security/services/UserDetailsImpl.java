@@ -1,5 +1,6 @@
 package com.secure.notes.security.services;
 
+import com.secure.notes.models.User;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +36,6 @@ public class UserDetailsImpl implements UserDetails {
 
     public Collection<? extends GrantedAuthority> authorities;
 
-    // Constructor
     public UserDetailsImpl(Long id, String username, String email,
                            String password, boolean is2faEnabled,
                            Collection<? extends GrantedAuthority> authorities) {
@@ -47,24 +47,21 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    // Static method to build UserDetailsImpl from a custom User entity
-    public static UserDetailsImpl build(com.secure.notes.models.User user) {
-        // Convert the role enum to a string using the name() method
+    public static UserDetailsImpl build(User user) {
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name());
         return new UserDetailsImpl(
                 user.getUserId(),
                 user.getUsername(),
-                user.getPassword(),
                 user.getEmail(),
+                user.getPassword(),
                 user.isTwoFactorEnabled(),
                 List.of(authority)
         );
     }
 
-    // Implementing the UserDetails interface methods
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities; // Return the actual authorities list
+        return authorities;
     }
 
     @Override
@@ -83,22 +80,22 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
+        return true;
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.secure.notes.controller;
 
+import com.secure.notes.dtos.UserDTO;
 import com.secure.notes.models.User;
 import com.secure.notes.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,12 +22,20 @@ public class AdminController {
     }
 
     @GetMapping("/getusers")
-    public ResponseEntity<List<User>> getUsers() {
-        List<User> users = usersService.getUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(usersService.getAllUsers(), HttpStatus.OK);
     }
 
+    @PostMapping("/update-role")
+    public ResponseEntity<String> updateUserRole(@RequestParam Long userId,
+                                                 @RequestParam String roleName) {
+        usersService.updateUserRole(userId, roleName);
+        return ResponseEntity.ok("Successfully updated");
+    }
 
-
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(usersService.getUserById(id), HttpStatus.OK);
+    }
 
 }

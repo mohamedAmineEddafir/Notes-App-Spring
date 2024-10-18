@@ -6,9 +6,9 @@ import com.secure.notes.models.User;
 import java.util.List;
 
 public interface UsersService {
-    void updateUserRole(Long user_id, String roleName);
+    void updateUserRole(Long userId, String roleName);
 
-    List<User> getUsers();
+    List<User> getAllUsers();
 
-    UserDTO getUserById(Long user_id);
+    UserDTO getUserById(Long id);
 }

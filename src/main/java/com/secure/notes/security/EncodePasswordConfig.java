@@ -1,3 +1,4 @@
+/*
 package com.secure.notes.security;
 
 import org.springframework.context.annotation.Bean;
@@ -13,4 +14,4 @@ public class EncodePasswordConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
-}
+}*/
