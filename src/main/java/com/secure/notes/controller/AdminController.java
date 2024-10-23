@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController {
 
     private final UsersService usersService;
@@ -22,12 +23,13 @@ public class AdminController {
         this.usersService = usersService;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/getusers")
     public ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<>(usersService.getAllUsers(), HttpStatus.OK);
     }
 
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/update-role")
     public ResponseEntity<String> updateUserRole(@RequestParam Long userId,
                                                  @RequestParam String roleName) {
@@ -35,9 +37,9 @@ public class AdminController {
         return ResponseEntity.ok("Successfully updated");
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         return new ResponseEntity<>(usersService.getUserById(id), HttpStatus.OK);
     }
 
