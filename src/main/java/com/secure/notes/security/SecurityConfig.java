@@ -20,10 +20,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(
+/*@EnableMethodSecurity(
         prePostEnabled = true,
         securedEnabled = true,
-        jsr250Enabled = true)
+        jsr250Enabled = true)*/
 public class SecurityConfig {
 
     @Bean
